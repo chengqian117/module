@@ -4,6 +4,7 @@ package com.cq.module.utils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cq.module.common.Constant;
+import com.cq.module.common.xss.SQLFilter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
