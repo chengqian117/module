@@ -1,0 +1,83 @@
+package ${package.ServiceImpl};
+
+import com.chengqian.module.frame.entity.PageParam;
+import com.chengqian.module.frame.utils.PageUtils;
+import com.chengqian.module.frame.utils.Query;
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${superServiceImplClassPackage};
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+@Slf4j
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+#else
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+        @Override
+        public PageUtils queryPage( PageParam<${entity}> params) {
+            ${entity} search = params.getParams();
+            IPage<${entity}> page;
+            if(search==null){
+                page = page(
+                new Query<${entity}>().getPage(params),
+                new QueryWrapper<>()
+                );
+            }else{
+                page = page(
+                new Query<${entity}>().getPage(params),
+                new LambdaQueryWrapper<${entity}>()
+                .eq(${entity}::getName,search.getName())
+                );
+            }
+
+        return new PageUtils(page);
+        }
+}
+#end
+
+//页面表格
+/**
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+     { label: 'ID', name: '${field.propertyName}', width: 60, align: 'center', key: true },
+        #end
+     { label: '${field.comment}', name: '${field.propertyName}', width: 200, align: 'center' },
+    #end
+
+ //页面修改table
+
+    #foreach($field in ${table.fields})
+        #if(${field.keyFlag})
+     <tr>
+     <th>ID</th>
+     <td>
+     <input type="text"  class="form-control required" v-model="ent.${field.propertyName}" placeholder="请输入ID" />
+     </td>
+     </tr>
+        #end
+     <tr>
+     <th>${field.comment}</th>
+     <td>
+     <input type="text" class="form-control" v-model="ent.${field.propertyName}" />
+     </td>
+     </tr>
+    #end
+ **/
