@@ -14,7 +14,7 @@ public class CodeGeneration {
     //要生成的表名
     public static final String[]  tableNames=new String[]{"com_myt"};
     //生成代码所在的包
-    public static final String   packageName="com.cq.module.com";
+    public static final String   packageName="com.chengqian.module.mod.com";
     //生成代码所在路径
     public static final String   outputDir="D:\\code\\module";
 

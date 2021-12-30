@@ -8,7 +8,7 @@
         <version>2.3.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.cq</groupId>
+    <groupId>com.chengqian</groupId>
     <artifactId>module</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>module</name>
