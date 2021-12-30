@@ -79,4 +79,11 @@ mybatis-plus:
     call-setters-on-nulls: true
     jdbc-type-for-null: 'null'
 
-
+#多数据源的配置
+#dynamic:
+#  datasource:
+#    local_mysql:
+#      driver-class-name: com.mysql.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/jxhc?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+#      username: root
+#      password: 123456asd
