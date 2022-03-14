@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.springframework.web" level="INFO"/>
-    <logger name="org.springboot.sample" level="TRACE" />
+    <logger name="org.springboot.sample" level="TRACE"/>
 
-    <property name="LOG_HOME" value="D:/log/module" />
-<!--    <property name="LOG_HOME" value="/tmp/log/module" />-->
+    <property name="LOG_HOME" value="D:/log/module"/>
+    <!--    <property name="LOG_HOME" value="/tmp/log/module" />-->
     <appender name="debug_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
             <FileNamePattern>${LOG_HOME}/debug.log.%d{yyyy-MM-dd}.log</FileNamePattern>
-<!--            <FileNamePattern>${LOG_HOME}/debug.log.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+            <!--            <FileNamePattern>${LOG_HOME}/debug.log.%d{yyyy-MM-dd}.log</FileNamePattern>-->
             <!--日志文件保留天数-->
             <MaxHistory>5</MaxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
         <!--日志文件最大的大小-->
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
@@ -25,8 +25,8 @@
         <!-- 所有error日志都在这里-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>DEBUG</level>
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
+            <!--            <onMatch>ACCEPT</onMatch>-->
+            <!--            <onMismatch>DENY</onMismatch>-->
         </filter>
     </appender>
     <appender name="info_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -39,34 +39,35 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
         <!--日志文件最大的大小-->
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>10MB</MaxFileSize>
         </triggeringPolicy>
         <!-- 所有error日志都在这里-->
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
     <!-- 开发、测试环境 -->
-    <springProfile name="dev,test">
+    <springProfile name="dev|test">
         <logger name="org.springframework.web" level="INFO"/>
-        <logger name="org.springboot.sample" level="INFO" />
-        <logger name="com.chengqian.module" level="DEBUG" />
+        <logger name="org.springboot.sample" level="INFO"/>
+        <logger name="com.chengqian.module" level="DEBUG"/>
         <root>
             <appender-ref ref="debug_log"/>
+            <appender-ref ref="info_log"/>
         </root>
     </springProfile>
 
     <!-- 生产环境 -->
     <springProfile name="prod">
         <logger name="org.springframework.web" level="ERROR"/>
-        <logger name="org.springboot.sample" level="ERROR" />
-        <logger name="com.chengqian.module" level="INFO" />
+        <logger name="org.springboot.sample" level="ERROR"/>
+        <logger name="com.chengqian.module" level="INFO"/>
         <root>
             <appender-ref ref="info_log"/>
         </root>
